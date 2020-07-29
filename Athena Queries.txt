@@ -1,0 +1,381 @@
+MSCK REPAIR TABLE tracking_game_range;
+
+create table ohsaquonuc.home_tracking_2019 as
+select gameid,
+       trim(schedule.hometeamabbr) as team_abbr,
+       trim(schedule.homedisplayname) as team,
+       home_tracking.nflid,
+       home_tracking.gsisid,
+       home_tracking.esbid,
+       trim(home_tracking.firstname) as firstname,
+       trim(home_tracking.lastname) as lastname,
+       home_tracking.positiongroup,
+       home_tracking.position,
+       player_tracking.time as player_time,
+       player_tracking.x as player_x,
+       player_tracking.y as player_y,
+       player_tracking.z as player_z,
+       player_tracking.a as player_directional_acceleration,
+       player_tracking.dir as player_direction_in_degrees,
+       player_tracking.o as player_orientation_in_degrees,
+       player_tracking.s as player_speed,
+       player_tracking.sa as player_delta_acceleration,
+       year,
+       1 as home_away,
+       case when home_tracking.positiongroup in ('OL', 'QB', 'WR', 'RB', 'TE') then 1 else 0 end as offense_or_defense
+       
+from nfl_source.tracking_game_range
+cross join unnest (tracking_game_range.hometrackingdata) as t(home_tracking)
+cross join unnest (home_tracking.playertrackingdata) as t(player_tracking)
+where year = '2019'
+and schedule.seasontype = 'REG'
+and player_tracking.isonfield = 'true';
+
+create table ohsaquonuc.home_tracking_2018 as
+select gameid,
+       trim(schedule.hometeamabbr) as team_abbr,
+       trim(schedule.homedisplayname) as team,
+       home_tracking.nflid,
+       home_tracking.gsisid,
+       home_tracking.esbid,
+       trim(home_tracking.firstname) as firstname,
+       trim(home_tracking.lastname) as lastname,
+       home_tracking.positiongroup,
+       home_tracking.position,
+       player_tracking.time as player_time,
+       player_tracking.x as player_x,
+       player_tracking.y as player_y,
+       player_tracking.z as player_z,
+       player_tracking.a as player_directional_acceleration,
+       player_tracking.dir as player_direction_in_degrees,
+       player_tracking.o as player_orientation_in_degrees,
+       player_tracking.s as player_speed,
+       player_tracking.sa as player_delta_acceleration,
+       year,
+       1 as home_away,
+       case when home_tracking.positiongroup in ('OL', 'QB', 'WR', 'RB', 'TE') then 1 else 0 end as offense_or_defense
+       
+from nfl_source.tracking_game_range
+cross join unnest (tracking_game_range.hometrackingdata) as t(home_tracking)
+cross join unnest (home_tracking.playertrackingdata) as t(player_tracking)
+where year = '2018'
+and schedule.seasontype = 'REG'
+and player_tracking.isonfield = 'true';
+
+create table ohsaquonuc.home_tracking_2017 as
+select gameid,
+       trim(schedule.hometeamabbr) as team_abbr,
+       trim(schedule.homedisplayname) as team,
+       home_tracking.nflid,
+       home_tracking.gsisid,
+       home_tracking.esbid,
+       trim(home_tracking.firstname) as firstname,
+       trim(home_tracking.lastname) as lastname,
+       home_tracking.positiongroup,
+       home_tracking.position,
+       player_tracking.time as player_time,
+       player_tracking.x as player_x,
+       player_tracking.y as player_y,
+       player_tracking.z as player_z,
+       player_tracking.a as player_directional_acceleration,
+       player_tracking.dir as player_direction_in_degrees,
+       player_tracking.o as player_orientation_in_degrees,
+       player_tracking.s as player_speed,
+       player_tracking.sa as player_delta_acceleration,
+       year,
+       1 as home_away,
+       case when home_tracking.positiongroup in ('OL', 'QB', 'WR', 'RB', 'TE') then 1 else 0 end as offense_or_defense
+       
+from nfl_source.tracking_game_range
+cross join unnest (tracking_game_range.hometrackingdata) as t(home_tracking)
+cross join unnest (home_tracking.playertrackingdata) as t(player_tracking)
+where year = '2017'
+and schedule.seasontype = 'REG'
+and player_tracking.isonfield = 'true';
+
+create table ohsaquonuc.away_tracking_2019 as
+select gameid,
+       trim(schedule.visitorteamabbr) as team_abbr,
+       schedule.visitordisplayname as team,
+       away_tracking.nflid,
+       away_tracking.gsisid,
+       away_tracking.esbid,
+       trim(away_tracking.firstname) as firstname,
+       trim(away_tracking.lastname) as lastname,
+       away_tracking.positiongroup,
+       away_tracking.position,
+       player_tracking.time as player_time,
+       player_tracking.x as player_x,
+       player_tracking.y as player_y,
+       player_tracking.z as player_z,
+       player_tracking.a as player_directional_acceleration,
+       player_tracking.dir as player_direction_in_degrees,
+       player_tracking.o as player_orientation_in_degrees,
+       player_tracking.s as player_speed,
+       player_tracking.sa as player_delta_acceleration,
+       year,
+       0 as home_away,
+       case when away_tracking.positiongroup in ('OL', 'QB', 'WR', 'RB', 'TE') then 1 else 0 end as offense_or_defense
+       
+from nfl_source.tracking_game_range
+cross join unnest (tracking_game_range.awaytrackingdata) as t(away_tracking)
+cross join unnest (away_tracking.playertrackingdata) as t(player_tracking)
+where year = '2019'
+and schedule.seasontype = 'REG'
+and player_tracking.isonfield = 'true';
+
+create table ohsaquonuc.away_tracking_2018 as
+select gameid,
+       trim(schedule.visitorteamabbr) as team_abbr,
+       schedule.visitordisplayname as team,
+       away_tracking.nflid,
+       away_tracking.gsisid,
+       away_tracking.esbid,
+       trim(away_tracking.firstname) as firstname,
+       trim(away_tracking.lastname) as lastname,
+       away_tracking.positiongroup,
+       away_tracking.position,
+       player_tracking.time as player_time,
+       player_tracking.x as player_x,
+       player_tracking.y as player_y,
+       player_tracking.z as player_z,
+       player_tracking.a as player_directional_acceleration,
+       player_tracking.dir as player_direction_in_degrees,
+       player_tracking.o as player_orientation_in_degrees,
+       player_tracking.s as player_speed,
+       player_tracking.sa as player_delta_acceleration,
+       year,
+       0 as home_away,
+       case when away_tracking.positiongroup in ('OL', 'QB', 'WR', 'RB', 'TE') then 1 else 0 end as offense_or_defense
+       
+from nfl_source.tracking_game_range
+cross join unnest (tracking_game_range.awaytrackingdata) as t(away_tracking)
+cross join unnest (away_tracking.playertrackingdata) as t(player_tracking)
+where year = '2018'
+and schedule.seasontype = 'REG'
+and player_tracking.isonfield = 'true';
+
+create table ohsaquonuc.away_tracking_2017 as
+select gameid,
+       trim(schedule.visitorteamabbr) as team_abbr,
+       schedule.visitordisplayname as team,
+       away_tracking.nflid,
+       away_tracking.gsisid,
+       away_tracking.esbid,
+       trim(away_tracking.firstname) as firstname,
+       trim(away_tracking.lastname) as lastname,
+       away_tracking.positiongroup,
+       away_tracking.position,
+       player_tracking.time as player_time,
+       player_tracking.x as player_x,
+       player_tracking.y as player_y,
+       player_tracking.z as player_z,
+       player_tracking.a as player_directional_acceleration,
+       player_tracking.dir as player_direction_in_degrees,
+       player_tracking.o as player_orientation_in_degrees,
+       player_tracking.s as player_speed,
+       player_tracking.sa as player_delta_acceleration,
+       year,
+       0 as home_away,
+       case when away_tracking.positiongroup in ('OL', 'QB', 'WR', 'RB', 'TE') then 1 else 0 end as offense_or_defense
+       
+from nfl_source.tracking_game_range
+cross join unnest (tracking_game_range.awaytrackingdata) as t(away_tracking)
+cross join unnest (away_tracking.playertrackingdata) as t(player_tracking)
+where year = '2017'
+and schedule.seasontype = 'REG'
+and player_tracking.isonfield = 'true';
+
+create table ohsaquonuc.tracking_player_data as
+select * from home_tracking_2017
+union all
+select * from away_tracking_2017
+union all
+select * from home_tracking_2018
+union all
+select * from away_tracking_2018
+union all
+select * from home_tracking_2019
+union all
+select * from away_tracking_2019;
+
+create table ohsaquonuc.balltracking_data as
+select gameid,
+       gsisplayid,
+       play.playid,
+       ball_tracking.time,
+       ball_tracking.x,
+       ball_tracking.y,
+       year
+
+from balltracking_game_play
+cross join unnest (balltracking_game_play.balltrackingdata) as t(ball_tracking)
+where year in ('2017', '2018', '2019');
+
+
+and schedule.seasontype = 'REG';
+
+create table ohsaquonuc.tracking_ball_and_player_data as
+select a.year,
+       a.gameid,
+       a.team_abbr,
+       a.team,
+       a.nflid,
+       a.esbid,
+       b.gsisplayid,
+       b.playid,
+       a.firstname,
+       a.lastname,
+       a.positiongroup,
+       a.position,
+       a.player_time,
+       a.player_x,
+       a.player_y,
+       a.player_z,
+       a.player_directional_acceleration,
+       a.player_direction_in_degrees,
+       a.player_orientation_in_degrees,
+       a.player_speed,
+       a.player_delta_acceleration,
+       a.home_away,
+       a.offense_or_defense,
+       b.time as ball_time,
+       b.x as ball_x,
+       b.y as ball_y
+from ohsaquonuc.tracking_player_data a, ohsaquonuc.balltracking_data b
+where cast(a.gameid as bigint) = b.gameid
+and from_iso8601_timestamp(a.player_time) = from_iso8601_timestamp(b.time);
+
+create table ohsaquonuc.nflscrapr_playtype as
+select game_id,
+       play_id,
+       play_type
+from nfl_source.nflscrapr_data
+where season = 'regular'
+and play_type in  ('run', 'pass')
+and cast(substr(game_id, 1, 4) as bigint) >=2017
+and cast(substr(game_id, 1, 4) as bigint) <=2019;
+
+create table ohsaquonuc.tracking_playid_w_playtype as
+select a.gameid,
+       a.starttime,
+       a.endtime,
+       a.playid,
+       a.year,
+       b.play_type
+from nfl_source.tracking_game_range_playid as a
+inner join ohsaquonuc.nflscrapr_playtype as b
+on a.gameid=b.game_id
+and a.playid=cast(b.play_id as bigint);
+
+create table ohsaquonuc.tracking_data_pre_weights as
+select a.year,
+       cast(a.gameid as bigint) as gameid,
+       a.starttime,
+       a.endtime,
+       a.playid,
+       a.play_type,
+       b.nflid,
+       b.esbid,
+       b.team_abbr,
+       b.firstname,
+       b.lastname,
+       b.positiongroup,
+       b.position,
+       b.player_time,
+       b.player_x,
+       b.player_y,
+       b.player_z,
+       b.player_directional_acceleration,
+       b.player_direction_in_degrees,
+       b.player_orientation_in_degrees,
+       b.player_speed,
+       b.player_delta_acceleration,
+       b.home_away,
+       b.offense_or_defense,
+       b.ball_time,
+       b.ball_x,
+       b.ball_y
+       
+from ohsaquonuc.tracking_playid_w_playtype a, ohsaquonuc.tracking_ball_and_player_data b
+where a.gameid = b.gameid
+and a.playid = cast(b.playid as bigint)
+and from_iso8601_timestamp(b.player_time) between from_iso8601_timestamp(a.starttime) and from_iso8601_timestamp(a.endtime);
+
+For Weight and Height Scraper.py, see .py file in Github
+
+create table ohsaquonuc.tracking_data_weight_nulls as
+select tracking_data_pre_weights.year,
+       tracking_data_pre_weights.gameid,
+       tracking_data_pre_weights.starttime,
+       tracking_data_pre_weights.endtime,
+       tracking_data_pre_weights.playid,
+       tracking_data_pre_weights.play_type,
+       tracking_data_pre_weights.nflid,
+       tracking_data_pre_weights.esbid,
+       tracking_data_pre_weights.team_abbr,
+       tracking_data_pre_weights.firstname,
+       tracking_data_pre_weights.lastname,
+       tracking_data_pre_weights.positiongroup,
+       tracking_data_pre_weights.position,
+       player_weights.height,
+       player_weights.weight,
+       tracking_data_pre_weights.player_time,
+       tracking_data_pre_weights.player_x,
+       tracking_data_pre_weights.player_y,
+       tracking_data_pre_weights.player_z,
+       tracking_data_pre_weights.player_directional_acceleration,
+       tracking_data_pre_weights.player_direction_in_degrees,
+       tracking_data_pre_weights.player_orientation_in_degrees,
+       tracking_data_pre_weights.player_speed,
+       tracking_data_pre_weights.player_delta_acceleration,
+       tracking_data_pre_weights.home_away,
+       tracking_data_pre_weights.offense_or_defense,
+       tracking_data_pre_weights.ball_time,
+       tracking_data_pre_weights.ball_x,
+       tracking_data_pre_weights.ball_y
+from ohsaquonuc.tracking_data_pre_weights
+left join ohsaquonuc.player_weights
+on cast(tracking_data_pre_weights.year as bigint) = player_weights.year
+and upper(tracking_data_pre_weights.firstname) = upper(player_weights.first_name)
+and upper(tracking_data_pre_weights.lastname) = upper(player_weights.last_name)
+and upper(trim(tracking_data_pre_weights.team_abbr)) = upper(trim(player_weights.team));
+
+create table ohsaquonuc.weight_and_height_averages as
+select position, avg(weight) as avg_weight, avg(height) as avg_height
+from tracking_data_weight_nulls
+group by position;
+
+create table ohsaquonuc.all_tracking_data as
+select tracking_data_weight_nulls.year,
+       tracking_data_weight_nulls.gameid,
+       tracking_data_weight_nulls.starttime,
+       tracking_data_weight_nulls.endtime,
+       tracking_data_weight_nulls.playid,
+       tracking_data_weight_nulls.play_type,
+       tracking_data_weight_nulls.nflid,
+       tracking_data_weight_nulls.esbid,
+       tracking_data_weight_nulls.team_abbr,
+       tracking_data_weight_nulls.firstname,
+       tracking_data_weight_nulls.lastname,
+       tracking_data_weight_nulls.positiongroup,
+       tracking_data_weight_nulls.position,
+       coalesce(tracking_data_weight_nulls.height,weight_and_height_averages.avg_height) as height,
+       coalesce(tracking_data_weight_nulls.weight,weight_and_height_averages.avg_weight) as weight,
+       tracking_data_weight_nulls.player_time,
+       tracking_data_weight_nulls.player_x,
+       tracking_data_weight_nulls.player_y,
+       tracking_data_weight_nulls.player_z,
+       tracking_data_weight_nulls.player_directional_acceleration,
+       tracking_data_weight_nulls.player_direction_in_degrees,
+       tracking_data_weight_nulls.player_orientation_in_degrees,
+       tracking_data_weight_nulls.player_speed,
+       tracking_data_weight_nulls.player_delta_acceleration,
+       tracking_data_weight_nulls.home_away,
+       tracking_data_weight_nulls.offense_or_defense,
+       tracking_data_weight_nulls.ball_time,
+       tracking_data_weight_nulls.ball_x,
+       tracking_data_weight_nulls.ball_y
+from ohsaquonuc.tracking_data_weight_nulls
+left join ohsaquonuc.weight_and_height_averages
+on tracking_data_weight_nulls.position = weight_and_height_averages.position;
